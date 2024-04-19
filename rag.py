@@ -13,6 +13,7 @@ from transformers import (
     DPRContextEncoderTokenizer,
     HfArgumentParser,
     RagRetriever,
+    RagTokenForGeneration,
     RagSequenceForGeneration,
     RagTokenizer,
 )
@@ -109,7 +110,7 @@ def main(
     # Easy way to load the model
     retriever = RagRetriever.from_pretrained(rag_example_args.rag_model, index_name="custom", indexed_dataset=dataset)
     # retriever = RagRetriever.from_pretrained(rag_example_args.rag_model, index_name="custom", passages_path=passages_path, index_path=index_path)
-    model = RagSequenceForGeneration.from_pretrained(rag_example_args.rag_model, retriever=retriever)
+    model = RagTokenForGeneration.from_pretrained(rag_example_args.rag_model, retriever=retriever)
     tokenizer = RagTokenizer.from_pretrained(rag_example_args.rag_model)
 
     ######################################
@@ -166,7 +167,7 @@ class RagExampleArguments:
         metadata={"help": "Max length for generator"},
     )
     num_beams: Optional[int] = field(
-        default=3,
+        default=2,
         metadata={"help": "Number of beams"},
     )
 
@@ -194,7 +195,7 @@ class IndexHnswArguments:
         metadata={"help": "The dimension of the embeddings to pass to the HNSW Faiss index."},
     )
     m: int = field(
-        default=512,
+        default=256,
         metadata={
             "help": (
                 "The number of bi-directional links created for every new element during the HNSW index construction."

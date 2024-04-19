@@ -1,2 +1,2 @@
-what is retrieval-augmented generation?
+describe how retrieval-augmented generation works
 what are the two machine learning models in retrieval-augmented generation?
