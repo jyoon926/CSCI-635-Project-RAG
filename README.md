@@ -2,6 +2,8 @@
 
 This project implements the RAG framework and explores whether it is an effective approach to creating efficient large language models optimized for specific topics.
 
+Run `pip install -r requirements.txt` to install all required packages.
+
 Run the model on the rag_article.csv dataset using:
 
 `python3 rag.py`
