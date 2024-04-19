@@ -1,0 +1,49 @@
+{
+  "builder_name": "csv",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "csv",
+  "dataset_size": 3347,
+  "description": "",
+  "download_checksums": {
+    "/home/stu5/s15/jy9726/Courses/CS635/project/CSCI-635-Project-RAG/datasets/rag_article.csv": {
+      "num_bytes": 3340,
+      "checksum": null
+    }
+  },
+  "download_size": 3340,
+  "features": {
+    "text": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "title": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "embeddings": {
+      "feature": {
+        "dtype": "float32",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 6687,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 3347,
+      "num_examples": 1,
+      "dataset_name": "csv"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

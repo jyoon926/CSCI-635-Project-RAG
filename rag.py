@@ -1,7 +1,6 @@
 import os
 from dataclasses import dataclass, field
 from functools import partial
-from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import List, Optional
 
@@ -11,7 +10,7 @@ from datasets import Features, Sequence, Value, load_dataset
 
 from transformers import (
     DPRContextEncoder,
-    DPRContextEncoderTokenizerFast,
+    DPRContextEncoderTokenizer,
     HfArgumentParser,
     RagRetriever,
     RagSequenceForGeneration,
@@ -39,7 +38,7 @@ def split_documents(documents: dict) -> dict:
     return {"title": titles, "text": texts}
 
 
-def embed(documents: dict, ctx_encoder: DPRContextEncoder, ctx_tokenizer: DPRContextEncoderTokenizerFast) -> dict:
+def embed(documents: dict, ctx_encoder: DPRContextEncoder, ctx_tokenizer: DPRContextEncoderTokenizer) -> dict:
     """Compute the DPR embeddings of document passages"""
     input_ids = ctx_tokenizer(
         documents["title"], documents["text"], truncation=True, padding="longest", return_tensors="pt"
@@ -63,7 +62,7 @@ def main(
     index_hnsw_args: "IndexHnswArguments"
 ):
     ######################################
-    print("Step 1 - Create the dataset")
+    print("\nStep 1 - Create the dataset")
     ######################################
 
     assert os.path.isfile(rag_example_args.csv_path), "Please provide a valid path to a csv file"
@@ -76,7 +75,7 @@ def main(
 
     # Compute the embeddings
     ctx_encoder = DPRContextEncoder.from_pretrained(rag_example_args.dpr_ctx_encoder_model_name).to(device=device)
-    ctx_tokenizer = DPRContextEncoderTokenizerFast.from_pretrained(rag_example_args.dpr_ctx_encoder_model_name)
+    ctx_tokenizer = DPRContextEncoderTokenizer.from_pretrained(rag_example_args.dpr_ctx_encoder_model_name)
     new_features = Features(
         {"text": Value("string"), "title": Value("string"), "embeddings": Sequence(Value("float32"))}
     )
@@ -92,10 +91,10 @@ def main(
     dataset.save_to_disk(passages_path)
 
     ######################################
-    print("Step 2 - Index the dataset")
+    print("\nStep 2 - Index the dataset")
     ######################################
 
-    # Let's use the Faiss implementation of HNSW for fast approximate nearest neighbor search
+    # Let's use the Faiss implementation of HNSW for  approximate nearest neighbor search
     index = faiss.IndexHNSWFlat(index_hnsw_args.d, index_hnsw_args.m, faiss.METRIC_INNER_PRODUCT)
     dataset.add_faiss_index("embeddings", custom_index=index)
 
@@ -104,7 +103,7 @@ def main(
     dataset.get_index("embeddings").save(index_path)
 
     ######################################
-    print("Step 3 - Load RAG")
+    print("\nStep 3 - Load RAG")
     ######################################
 
     # Easy way to load the model
@@ -114,23 +113,23 @@ def main(
     tokenizer = RagTokenizer.from_pretrained(rag_example_args.rag_model_name)
 
     ######################################
-    print("Step 4 - Have fun")
+    print("\nStep 4 - Ask questions")
     ######################################
 
     if (rag_example_args.questions_file):
         questions = get_questions(rag_example_args.questions_file)
         for question in questions:
+            print("\nQ: " + question)
             input_ids = tokenizer.question_encoder(question, return_tensors="pt")["input_ids"]
-            generated = model.generate(input_ids, max_length=200, num_beams=2)
+            generated = model.generate(input_ids, max_length=rag_example_args.max_length, num_beams=rag_example_args.num_beams)
             generated_string = tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
-            print("Q: " + question)
             print("A: " + generated_string)
     else:
         while True:
             print("\nAsk a question:")
             question = input("Q: ")
             input_ids = tokenizer.question_encoder(question, return_tensors="pt")["input_ids"]
-            generated = model.generate(input_ids, max_length=100, num_beams=2)
+            generated = model.generate(input_ids, max_length=rag_example_args.max_length, num_beams=rag_example_args.num_beams)
             generated_string = tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
             print("A: " + generated_string)
 
@@ -138,7 +137,7 @@ def main(
 @dataclass
 class RagExampleArguments:
     csv_path: str = field(
-        default=str(Path(__file__).parent / "datasets" / "rag_article.csv"),
+        default="datasets/rag_article.csv",
         metadata={"help": "Path to a tab-separated csv file with columns 'title' and 'text'"},
     )
     questions_file: Optional[str] = field(
@@ -159,8 +158,16 @@ class RagExampleArguments:
         },
     )
     output_dir: Optional[str] = field(
-        default=None,
+        default="processed_dataset",
         metadata={"help": "Path to a directory where the dataset passages and the index will be saved"},
+    )
+    max_length: Optional[int] = field(
+        default=100,
+        metadata={"help": "Max length for generator"},
+    )
+    num_beams: Optional[int] = field(
+        default=2,
+        metadata={"help": "Number of beams"},
     )
 
 
