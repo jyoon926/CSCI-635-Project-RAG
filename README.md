@@ -6,10 +6,16 @@ Run the model on the rag_article.csv dataset using:
 
 `python3 rag.py`
 
-If you would like to initialize finetuning with a base model using different question encoder and generator architectures, you can build it with a consolidation script, e.g.:
+# Recommended steps:
 
-`python3 consolidate_rag_checkpoint.py --model_type rag_token --generator_name_or_path facebook/bart-large-mnli --question_encoder_name_or_path facebook/dpr-question_encoder-multiset-base --dest ./rag_checkpoint`
+If you would like to initialize finetuning with a base model using different question encoder and generator architectures, you can build it with the consolidation script, e.g.:
 
-Then you can use it as the RAG model:
+`python3 consolidate_rag_checkpoint.py --model_type rag_token --generator_name_or_path facebook/bart-large-cnn --question_encoder_name_or_path facebook/dpr-question_encoder-single-nq-base --dest ./rag_checkpoint`
+
+You can then use it as the RAG model:
 
 `python3 rag.py --rag_model ./rag_checkpoint`
+
+You can also specify a questions file for bulk end-to-end generation.
+
+`python3 rag.py --questions_file datasets/questions.txt --rag_model ./rag_checkpoint`

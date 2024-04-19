@@ -62,7 +62,7 @@ def main(
     index_hnsw_args: "IndexHnswArguments"
 ):
     ######################################
-    print("\nStep 1 - Create the dataset")
+    print("\nStep 1 - Create the dataset\n")
     ######################################
 
     assert os.path.isfile(rag_example_args.csv_path), "Please provide a valid path to a csv file"
@@ -77,7 +77,7 @@ def main(
     ctx_encoder = DPRContextEncoder.from_pretrained(rag_example_args.dpr_ctx_encoder_model).to(device=device)
     ctx_tokenizer = DPRContextEncoderTokenizer.from_pretrained(rag_example_args.dpr_ctx_encoder_model)
     new_features = Features(
-        {"text": Value("string"), "title": Value("string"), "embeddings": Sequence(Value("float32"))}
+        {"text": Value("string"), "title": Value("string"), "embeddings": Sequence(Value("float64"))}
     )
     dataset = dataset.map(
         partial(embed, ctx_encoder=ctx_encoder, ctx_tokenizer=ctx_tokenizer),
@@ -91,10 +91,10 @@ def main(
     dataset.save_to_disk(passages_path)
 
     ######################################
-    print("\nStep 2 - Index the dataset")
+    print("\nStep 2 - Index the dataset\n")
     ######################################
 
-    # Let's use the Faiss implementation of HNSW for  approximate nearest neighbor search
+    # Let's use the Faiss implementation of HNSW for approximate nearest neighbor search
     index = faiss.IndexHNSWFlat(index_hnsw_args.d, index_hnsw_args.m, faiss.METRIC_INNER_PRODUCT)
     dataset.add_faiss_index("embeddings", custom_index=index)
 
@@ -103,12 +103,12 @@ def main(
     dataset.get_index("embeddings").save(index_path)
 
     ######################################
-    print("\nStep 3 - Load RAG")
+    print("\nStep 3 - Load RAG\n")
     ######################################
 
     # Easy way to load the model
-    # retriever = RagRetriever.from_pretrained(rag_example_args.rag_model, index_name="custom", indexed_dataset=dataset)
-    retriever = RagRetriever.from_pretrained(rag_example_args.rag_model, index_name="custom", passages_path=passages_path, index_path=index_path)
+    retriever = RagRetriever.from_pretrained(rag_example_args.rag_model, index_name="custom", indexed_dataset=dataset)
+    # retriever = RagRetriever.from_pretrained(rag_example_args.rag_model, index_name="custom", passages_path=passages_path, index_path=index_path)
     model = RagSequenceForGeneration.from_pretrained(rag_example_args.rag_model, retriever=retriever)
     tokenizer = RagTokenizer.from_pretrained(rag_example_args.rag_model)
 
@@ -166,7 +166,7 @@ class RagExampleArguments:
         metadata={"help": "Max length for generator"},
     )
     num_beams: Optional[int] = field(
-        default=2,
+        default=3,
         metadata={"help": "Number of beams"},
     )
 
@@ -194,7 +194,7 @@ class IndexHnswArguments:
         metadata={"help": "The dimension of the embeddings to pass to the HNSW Faiss index."},
     )
     m: int = field(
-        default=128,
+        default=512,
         metadata={
             "help": (
                 "The number of bi-directional links created for every new element during the HNSW index construction."
