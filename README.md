@@ -12,4 +12,4 @@ If you would like to initialize finetuning with a base model using different que
 
 Then you can use it as the RAG model:
 
-`python3 rag.py --rag_model_name ./rag_checkpoint`
+`python3 rag.py --rag_model ./rag_checkpoint`

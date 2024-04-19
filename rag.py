@@ -74,8 +74,8 @@ def main(
     dataset = dataset.map(split_documents, batched=True, num_proc=processing_args.num_proc)
 
     # Compute the embeddings
-    ctx_encoder = DPRContextEncoder.from_pretrained(rag_example_args.dpr_ctx_encoder_model_name).to(device=device)
-    ctx_tokenizer = DPRContextEncoderTokenizer.from_pretrained(rag_example_args.dpr_ctx_encoder_model_name)
+    ctx_encoder = DPRContextEncoder.from_pretrained(rag_example_args.dpr_ctx_encoder_model).to(device=device)
+    ctx_tokenizer = DPRContextEncoderTokenizer.from_pretrained(rag_example_args.dpr_ctx_encoder_model)
     new_features = Features(
         {"text": Value("string"), "title": Value("string"), "embeddings": Sequence(Value("float32"))}
     )
@@ -107,10 +107,10 @@ def main(
     ######################################
 
     # Easy way to load the model
-    # retriever = RagRetriever.from_pretrained(rag_example_args.rag_model_name, index_name="custom", indexed_dataset=dataset)
-    retriever = RagRetriever.from_pretrained(rag_example_args.rag_model_name, index_name="custom", passages_path=passages_path, index_path=index_path)
-    model = RagSequenceForGeneration.from_pretrained(rag_example_args.rag_model_name, retriever=retriever)
-    tokenizer = RagTokenizer.from_pretrained(rag_example_args.rag_model_name)
+    # retriever = RagRetriever.from_pretrained(rag_example_args.rag_model, index_name="custom", indexed_dataset=dataset)
+    retriever = RagRetriever.from_pretrained(rag_example_args.rag_model, index_name="custom", passages_path=passages_path, index_path=index_path)
+    model = RagSequenceForGeneration.from_pretrained(rag_example_args.rag_model, retriever=retriever)
+    tokenizer = RagTokenizer.from_pretrained(rag_example_args.rag_model)
 
     ######################################
     print("\nStep 4 - Ask questions")
@@ -144,11 +144,11 @@ class RagExampleArguments:
         default=None,
         metadata={"help": "Questions that are passed as input to RAG."},
     )
-    rag_model_name: str = field(
+    rag_model: str = field(
         default="facebook/rag-token-base",
         metadata={"help": "The RAG model to use."},
     )
-    dpr_ctx_encoder_model_name: str = field(
+    dpr_ctx_encoder_model: str = field(
         default="facebook/dpr-ctx_encoder-multiset-base",
         metadata={
             "help": (
