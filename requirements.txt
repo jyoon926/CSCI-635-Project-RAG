@@ -1,0 +1,4 @@
+faiss-cpu == 1.8.0
+datasets == 2.18.0
+torch == 2.2.2
+transformers == 4.39.2
