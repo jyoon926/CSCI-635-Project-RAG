@@ -1,2 +1,3 @@
-describe how retrieval-augmented generation works
-what are the two machine learning models in retrieval-augmented generation?
+what is retrieval-augmented generation?
+how does the rag-sequence work compared to the rag-token model?
+what are future applications of rag?
