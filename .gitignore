@@ -1,3 +1,4 @@
 rag_checkpoint/
 checkpoint/
 processed_dataset/
+wiki_dpr/*

@@ -4,7 +4,7 @@ This project implements the RAG framework and explores whether it is an effectiv
 
 Run `pip install -r requirements.txt` to install all required packages.
 
-Run the model on the rag_article.csv dataset using:
+Run the model with the default settings using:
 
 `python3 rag.py`
 
@@ -21,3 +21,15 @@ You can then use it as the RAG model:
 You can also specify a custom dataset, as well as a questions file for bulk end-to-end generation.
 
 `python3 rag.py --rag_model ./rag_checkpoint --questions_file datasets/questions.txt --dataset datasets/scrubbed_output_22APR.txt`
+
+The original paper used the `wiki_dpr` dataset, which is a Wikipedia dump from 2018 consisting of 21M passages. Download the following files and place them in the `/wiki_dpr` folder.
+
+<https://storage.googleapis.com/huggingface-nlp/datasets/wiki_dpr/psgs_w100.tsv.pkl>
+
+<https://storage.googleapis.com/huggingface-nlp/datasets/wiki_dpr/hf_bert_base.hnswSQ8_correct_phi_128.c_index.index.dpr>
+
+<https://storage.googleapis.com/huggingface-nlp/datasets/wiki_dpr/hf_bert_base.hnswSQ8_correct_phi_128.c_index.index_meta.dpr>
+
+Then, run:
+
+`python3 rag_wiki_dpr.py --rag_model ./rag_checkpoint --questions_file datasets/questions.txt`.

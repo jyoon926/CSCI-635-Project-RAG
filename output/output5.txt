@@ -1,0 +1,8 @@
+dataset: wiki_dpr
+max_length: 200
+num_beams: 3
+n_docs: 10
+passage_length: 80
+rag_model: ./rag_checkpoint
+dpr_ctx_encoder: facebook/dpr-ctx_encoder-single-nq-base
+
