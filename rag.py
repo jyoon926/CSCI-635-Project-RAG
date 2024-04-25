@@ -33,7 +33,7 @@ def split_documents(documents: dict) -> dict:
     titles, texts = [], []
     for title, text in zip(documents["title"], documents["text"]):
         if text is not None:
-            for passage in split_text(text, hyper_parameters.passage_length):
+            for passage in split_text(text, hyper_params.passage_length):
                 titles.append(title if title is not None else "")
                 texts.append(passage)
     return {"title": titles, "text": texts}
@@ -57,27 +57,35 @@ def get_questions(questions_file: str):
     return questions
 
 
+def get_output_filename():
+    filename = "output/output"
+    i = 0
+    while os.path.exists(filename + str(i) + ".txt"):
+        i += 1
+    return filename + str(i) + ".txt"
+    
+
 def main(
     rag_args: "RagArguments",
     processing_args: "ProcessingArguments",
     index_hnsw_args: "IndexHnswArguments",
-    hyper_parameters: "HyperParameters"
+    hyper_params: "HyperParameters"
 ):
     ######################################
     print("\nStep 1 - Create the dataset\n")
     ######################################
 
-    assert os.path.isfile(rag_args.csv_path), "Please provide a valid path to a csv file"
+    assert os.path.isfile(rag_args.dataset), "Please provide a valid path to a csv file"
     dataset = load_dataset(
-        "csv", data_files=[rag_args.csv_path], split="train", delimiter="\t", column_names=["title", "text"]
+        "csv", data_files=[rag_args.dataset], split="train", delimiter="\t", column_names=["title", "text"]
     )
 
     # Split the documents into passages of 100 words
     dataset = dataset.map(split_documents, batched=True, num_proc=processing_args.num_proc)
 
     # Compute the embeddings
-    ctx_encoder = DPRContextEncoder.from_pretrained(rag_args.dpr_ctx_encoder_model).to(device=device)
-    ctx_tokenizer = DPRContextEncoderTokenizer.from_pretrained(rag_args.dpr_ctx_encoder_model)
+    ctx_encoder = DPRContextEncoder.from_pretrained(rag_args.dpr_ctx_encoder).to(device=device)
+    ctx_tokenizer = DPRContextEncoderTokenizer.from_pretrained(rag_args.dpr_ctx_encoder)
     new_features = Features(
         {"text": Value("string"), "title": Value("string"), "embeddings": Sequence(Value("float64"))}
     )
@@ -89,7 +97,7 @@ def main(
     )
 
     # And finally save your dataset
-    passages_path = os.path.join(rag_args.output_dir, "dataset")
+    passages_path = os.path.join(rag_args.dataset_output_dir, "dataset")
     dataset.save_to_disk(passages_path)
 
     ######################################
@@ -101,7 +109,7 @@ def main(
     dataset.add_faiss_index("embeddings", custom_index=index)
 
     # And save the index
-    index_path = os.path.join(rag_args.output_dir, "dataset_hnsw_index.faiss")
+    index_path = os.path.join(rag_args.dataset_output_dir, "dataset_hnsw_index.faiss")
     dataset.get_index("embeddings").save(index_path)
 
     ######################################
@@ -110,7 +118,7 @@ def main(
 
     # Easy way to load the model
     retriever = RagRetriever.from_pretrained(rag_args.rag_model, index_name="custom", indexed_dataset=dataset)
-    retriever.n_docs = hyper_parameters.n_docs
+    retriever.n_docs = hyper_params.n_docs
     # retriever = RagRetriever.from_pretrained(rag_args.rag_model, index_name="custom", passages_path=passages_path, index_path=index_path)
     model = RagTokenForGeneration.from_pretrained(rag_args.rag_model, retriever=retriever)
     tokenizer = RagTokenizer.from_pretrained(rag_args.rag_model)
@@ -119,35 +127,49 @@ def main(
     print("\nStep 4 - Ask questions")
     ######################################
 
-    if (rag_args.questions_file):
-        questions = get_questions(rag_args.questions_file)
-        for question in questions:
-            print("\nQ: " + question)
-            input_ids = tokenizer.question_encoder(question, return_tensors="pt")["input_ids"]
-            generated = model.generate(
-                            input_ids, 
-                            num_beams=hyper_parameters.num_beams,
-                            max_length=hyper_parameters.max_length
-                        )
-            generated_string = tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
-            print("A: " + generated_string)
-    else:
-        while True:
-            print("\nAsk a question:")
-            question = input("Q: ")
-            input_ids = tokenizer.question_encoder(question, return_tensors="pt")["input_ids"]
-            generated = model.generate(
-                            input_ids, 
-                            num_beams=hyper_parameters.num_beams,
-                            max_length=hyper_parameters.max_length
-                        )
-            generated_string = tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
-            print("A: " + generated_string)
+    output_filename = get_output_filename()
+    print(output_filename)
+    with open(output_filename, 'w', encoding='utf-8') as output_file:
+        output_file.write("dataset: " + str(rag_args.dataset) + "\n")
+        output_file.write("max_length: " + str(hyper_params.max_length) + "\n")
+        output_file.write("num_beams: " + str(hyper_params.num_beams) + "\n")
+        output_file.write("n_docs: " + str(hyper_params.n_docs) + "\n")
+        output_file.write("passage_length: " + str(hyper_params.passage_length) + "\n")
+        output_file.write("rag_model: " + str(rag_args.rag_model) + "\n")
+        output_file.write("dpr_ctx_encoder: " + str(rag_args.dpr_ctx_encoder) + "\n\n")
+        if (rag_args.questions_file):
+            questions = get_questions(rag_args.questions_file)
+            for question in questions:
+                print("\nQ: " + question)
+                input_ids = tokenizer.question_encoder(question, return_tensors="pt")["input_ids"]
+                generated = model.generate(
+                                input_ids, 
+                                num_beams=hyper_params.num_beams,
+                                max_length=hyper_params.max_length
+                            )
+                generated_string = tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
+                print("A: " + generated_string)
+                output_file.write("Q: " + question + "\n\n")
+                output_file.write("\tA: " + generated_string + "\n\n")
+        else:
+            while True:
+                print("\nAsk a question:")
+                question = input("Q: ")
+                input_ids = tokenizer.question_encoder(question, return_tensors="pt")["input_ids"]
+                generated = model.generate(
+                                input_ids, 
+                                num_beams=hyper_params.num_beams,
+                                max_length=hyper_params.max_length
+                            )
+                generated_string = tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
+                print("A: " + generated_string)
+                output_file.write("Q: " + question + "\n")
+                output_file.write("\tA: " + generated_string + "\n")
 
 
 @dataclass
 class RagArguments:
-    csv_path: str = field(
+    dataset: str = field(
         default="datasets/rag_article.csv",
         metadata={"help": "Path to a tab-separated csv file with columns 'title' and 'text'"},
     )
@@ -159,7 +181,7 @@ class RagArguments:
         default="facebook/rag-token-base",
         metadata={"help": "The RAG model to use."},
     )
-    dpr_ctx_encoder_model: str = field(
+    dpr_ctx_encoder: str = field(
         default="facebook/dpr-ctx_encoder-single-nq-base",
         metadata={
             "help": (
@@ -168,7 +190,7 @@ class RagArguments:
             )
         },
     )
-    output_dir: str = field(
+    dataset_output_dir: str = field(
         default="processed_dataset",
         metadata={"help": "Path to a directory where the dataset passages and the index will be saved"},
     )
@@ -177,7 +199,7 @@ class RagArguments:
 @dataclass
 class HyperParameters:
     max_length: int = field(
-        default=100,
+        default=200,
         metadata={"help": "Max length for generator"},
     )
     num_beams: int = field(
@@ -189,7 +211,7 @@ class HyperParameters:
         metadata={"help": "Top k documents"},
     )
     passage_length: int = field(
-        default=50,
+        default=80,
         metadata={"help": "Length of passages in words"},
     )
 
@@ -228,7 +250,7 @@ class IndexHnswArguments:
 
 if __name__ == "__main__":
     parser = HfArgumentParser((RagArguments, ProcessingArguments, IndexHnswArguments, HyperParameters))
-    rag_args, processing_args, index_hnsw_args, hyper_parameters = parser.parse_args_into_dataclasses()
+    rag_args, processing_args, index_hnsw_args, hyper_params = parser.parse_args_into_dataclasses()
     with TemporaryDirectory() as tmp_dir:
-        rag_args.output_dir = rag_args.output_dir or tmp_dir
-        main(rag_args, processing_args, index_hnsw_args, hyper_parameters)
+        rag_args.dataset_output_dir = rag_args.dataset_output_dir or tmp_dir
+        main(rag_args, processing_args, index_hnsw_args, hyper_params)

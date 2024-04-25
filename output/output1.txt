@@ -1,0 +1,128 @@
+dataset: datasets/scrubbed_output_22APR.txt
+max_length: 200
+num_beams: 3
+n_docs: 10
+passage_length: 80
+rag_model: ./rag_checkpoint
+dpr_ctx_encoder: facebook/dpr-ctx_encoder-multiset-base
+
+Q: What is retrieval-augmented generation?
+
+	A: Retrieval-Augmented Generation is a form of augmented reality. It can be used to help models clear up ambiguity in a user query. It also reduces the possibility a model will make a wrong guess, a phenomenon known as hallucination. It's relatively easy to use and can be implemented in as little as five lines of code.
+
+Q: What is the purpose of the RAG model in NLP tasks?
+
+	A: Retrieval-Augmented Generation (RAG) is a form of natural language processing. RAG can be used to answer questions with free-form, machine-readable text. The RAG model can also be used in a knowledge-base search engine. The MSMARCO NLG task v2.1 is the latest version of RAG.
+
+Q: How does the rag-sequence work compared to the rag-token model?
+
+	A: RAG-Token performs better than RAG-Sequence on Jeopardy question generation. Both models outperform BART on Q-BLEU-1. RAG and BART were factual in a further 17% of cases, clearly demonstrating the effectiveness of the RAG model.
+
+Q: How is evaluation performed in RAG?
+
+	A: Retrieval-Augmented Generation, aka RAG? / model that converts it into a numeric format so machines can read it. The embedding model then compares these numeric values to vectors in a machine-readable index of an available knowledge base. When it finds a match or multiple matches, it retrieves the related data, converts it to human-readable words and passes it to the LLM.
+
+Q: What is the difference between the BART and BERT models?
+
+	A: BART is trained by corrupting documents and then optimizing a reconstruction loss. BART contains roughly 10% more parameters than the equivalently sized BERT model. Unlike BERT, BART uses an additional feed-forward network before wordprediction, which BART does not. BART: Denoising Sequence-to-Sequence Pre-training.
+
+Q: How are the BERT and BART models used in RAG?
+
+	A: BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension used in BERT. BART contains roughly 10% more parameters than the equivalently sized BERT model. BART is trained by corrupting documents and then optimizing a reconstruction loss.
+
+Q: How does the RAG model use BART for text generation?
+
+	A: BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension. BART uses a bidirectional encoder over corrupted text. For pre-training, we optimize the negative log likelihood of the original document.
+
+Q: What is the role of Sentence Transformers in enhancing the RAG model's retrieval capabilities?
+
+	A: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. RAG can be used to generate abuse-free content. It uses sentence transformers to enhance the retrieval capabilities of the language model. The RAG model is based on a language model called the RAG language engine.
+
+Q: How does the RAG model retrieve text documents for generating target sequences?
+
+	A: Retrieval-Augmented Generation (RAG) turns a query into a numeric format. The embedding model then compares these numeric values to vectors in a machine-readable index. When it finds a match, it retrieves the related data, converts it to human-readable words and passes it back to the LLM.
+
+Q: What are the differences between RAG-Sequence and RAG-Token models?
+
+	A: RAG-Token performs better than RAG-Sequence on Jeopardy question generation. Both models outperform BART on Q-BLEU-1. BART was more factual than R AG in only 7.1% of cases. RAG was more accurate in 42.7% of the cases.
+
+Q: How does the training process of the RAG model involve the retriever and generator components?
+
+	A: Retrieval-Augmented Generation for Knowledge-Intensive Numerical Tasks. RAG’s training process involves the retriever and generator components. We compare RAG to a machine-readable index of an available knowledge base. When it finds a match, it retrieves the related data, converts it to human-readable words and passes it back to the LLM.
+
+Q: What is the significance of using BERT as the document encoder in RAG models?
+
+	A: Bert is the document encoder in rag models. It can be used to pre-train general language models. Bert can be fine-tuned to perform specific tasks, such as entailment or sentiment analysis. The results can be applied to a range of tasks, including speech recognition.
+
+Q: How does RAG-Sequence surpass BART in Open MS-MARCO NLG?
+
+	A: RAG can generate correct answers even when the correct answer is not in any retrieved document, achieving 11.8% accuracy in such cases. RAG-Sequence outperforms BART on Open MS-MARCO NLG by 2.6 Bleu points and 2.7 Rouge-L points.
+
+Q: What are the advantages of RAG-Token over RAG-Sequence in Jeopardy question generation?
+
+	A: RAG-Token performs better than RAG-Sequence on Jeopardy question generation. Both models outperform BART on Q-BLEU-1. RAG and BART were factual in a further 17% of cases, clearly demonstrating the effectiveness of rag - token over rag - sequence.
+
+Q: How does RAG perform on the FEVER fact verification task?
+
+	A: We analyze whether documents retrieved by RAG correspond to documents annotated as gold evidence in FEVER. We find that the top retrieved document is from a gold article in 71% of cases. We calculate the overlap in article titles between the top k documents and the gold evidence annotations.
+
+Q: What are the key components of the RAG model for knowledge-intensive NLP tasks?
+
+	A: The MSMARCO NLG task v2.1.1 consists of questions, ten gold passages retrieved from a search engine for each question, and a full sentence answer annotated from the retrieved passages. We do not use the supplied passages, only the questions and answers, to treat the task as an open-domain abstractive QA task.
+
+Q: How does RAG combine parametric and non-parametric memories for NLP tasks?
+
+	A: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. We fine-tune and evaluate our models on a wide range of knowledge-intensive NLP tasks. We find that RAG models generate more specific, diverse and factual language than a state-of-the-art parametric-based baseline.
+
+Q: What are the computational resources required for BERT and SentenceBERT in RAG models?
+
+	A: The pre-training procedure largely follows the existing literature on bidirectional Transformers for Language Understanding. For the pre-trained corpus we use the BooksCorpus (800M words) and English Wikipedia (2,500M words). For Wikipedia we extract only the text passages and ignore lists, tables, and headers.
+
+Q: How does RAG adapt to domain-specific tasks?
+
+	A: Retrieval-augmented generation (RAG) is a new form of AI. RAG uses LLMs and knowledge bases to deliver authoritative results. The future of generative AI lies in creatively chaining all sorts of LLMs together to create new kinds of assistants.
+
+Q: What are the implementation details of RAG models for Open-domain QA?
+
+	A: Retrieval-Augmented Generation (RAG) is a form of machine intelligence. RAG can be used to answer questions about a knowledge base. It can also be used as a tool to help people understand their data. The RAG model is based on an open-source library called RAG.
+
+Q: How does RAG handle the retrieval of documents for different models?
+
+	A: Retrieval-Augmented Generation (RAG) is the latest advance in generative AI. RAG can be used to retrieve documents for different models. It can also be used as a tool to help people with complex legal questions. The technology is currently being trialled by NVIDIA and others.
+
+Q: What is the significance of using mixed precision floating point arithmetic in RAG training?
+
+	A: Retrieval-Augmented Generation (RAG) is a new way to train AI models. It uses mixed precision floating point arithmetic to train models. RAG can be implemented in as little as a few lines of code. It can also be used to clear up ambiguity in a user query.
+
+Q: How does RAG utilize FAISS for document indexing and retrieval?
+
+	A: Retrieval-Augmented Generation, aka RAG? / model that converts it into a numeric format so machines can read it. The embedding model then compares these numeric values to vectors in a machine-readable index of an available knowledge base. When it finds a match or multiple matches, it retrieves the related data, converts it to human-readable words and passes it to the LLM.
+
+Q: What are the training setup details for RAG models?
+
+	A: Retrieval-Augmented Generation (RAG) is a form of machine learning. RAG uses a combination of LLMs and knowledge bases to search for answers to queries. The LLM converts the query into a numeric format that can be read by machines. The embedding model then compares these numeric values to vectors in a machine-readable index.
+
+Q: How does RAG perform on Open-Domain QA test scores?
+
+	A: Retrieval-Augmented Generation (RAG) is a form of machine learning. RAG can be used to answer questions in a knowledge base. It can also be used for training and testing. The RAG system is based on the MSMARCO NLG task v2.1.
+
+Q: What are the test scores for RAG models on Generation and Classification tasks?
+
+	A: Retrieval-Augmented Generation (RAG) is a form of machine learning. RAG can be used to update world knowledge by replacing words with non-parametric numbers. The RAG model can also be used for classification and classification tasks. The test scores for rag models on generation and classification task are shown below.
+
+Q: How does RAG perform on Jeopardy question generation?
+
+	A: RAG-Token performs better than RAG-Sequence on Jeopardy question generation. Both models outperform state-of-the-art BART on Q-BLEU-1. RAG and BART were factual in a further 17% of cases, clearly demonstrating the effectiveness of RAG.
+
+Q: What are the human evaluation results for RAG models on factuality?
+
+	A: RAG-Token performs better than RAG-Sequence on Jeopardy question generation. Both models outperform BART on Q&A questions. RAG and BART are both factual in nature, but RAG is more factual in 42.7% of cases, according to a recent study.
+
+Q: How does RAG generate correct answers when the correct answer is not in any retrieved document?
+
+	A: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. RAG compares a query to a machine-readable index of an available knowledge base. When it finds a match or multiple matches, it retrieves the related data, converts it to human-readable words and passes it back to the LLM.
+
+Q: What are the qualitative observations on RAG generations compared to BART?
+
+	A: RAG-Token performs better than RAG-Sequence on Jeopardy question generation. Both models outperform BART on Q-BLEU-1. Evaluators indicated that BART was more factual than R AG in only 7.1% of cases. Both RAG and BART were factual in a further 17% of Cases.
+

@@ -1,3 +1,30 @@
-what is retrieval-augmented generation?
-how does the rag-sequence work compared to the rag-token model?
-what are future applications of rag?
+What is retrieval-augmented generation?
+What is the purpose of the RAG model in NLP tasks?
+How does the rag-sequence work compared to the rag-token model?
+How is evaluation performed in RAG?
+What is the difference between the BART and BERT models?
+How are the BERT and BART models used in RAG?
+How does the RAG model use BART for text generation?
+What is the role of Sentence Transformers in enhancing the RAG model's retrieval capabilities?
+How does the RAG model retrieve text documents for generating target sequences?
+What are the differences between RAG-Sequence and RAG-Token models?
+How does the training process of the RAG model involve the retriever and generator components?
+What is the significance of using BERT as the document encoder in RAG models?
+How does RAG-Sequence surpass BART in Open MS-MARCO NLG?
+What are the advantages of RAG-Token over RAG-Sequence in Jeopardy question generation?
+How does RAG perform on the FEVER fact verification task?
+What are the key components of the RAG model for knowledge-intensive NLP tasks?
+How does RAG combine parametric and non-parametric memories for NLP tasks?
+What are the computational resources required for BERT and SentenceBERT in RAG models?
+How does RAG adapt to domain-specific tasks?
+What are the implementation details of RAG models for Open-domain QA?
+How does RAG handle the retrieval of documents for different models?
+What is the significance of using mixed precision floating point arithmetic in RAG training?
+How does RAG utilize FAISS for document indexing and retrieval?
+What are the training setup details for RAG models?
+How does RAG perform on Open-Domain QA test scores?
+What are the test scores for RAG models on Generation and Classification tasks?
+How does RAG perform on Jeopardy question generation?
+What are the human evaluation results for RAG models on factuality?
+How does RAG generate correct answers when the correct answer is not in any retrieved document?
+What are the qualitative observations on RAG generations compared to BART?
