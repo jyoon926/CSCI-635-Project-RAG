@@ -135,7 +135,8 @@ def main(
     load_start_time = time.time()
 
     # Easy way to load the model
-    retriever = RagRetriever.from_pretrained(rag_args.rag_model, index_name="custom", indexed_dataset=dataset, n_docs=hyper_params.n_docs)
+    retriever = RagRetriever.from_pretrained(rag_args.rag_model, index_name="custom", indexed_dataset=dataset)
+    retriever.n_docs = hyper_params.n_docs
     model = RagTokenForGeneration.from_pretrained(rag_args.rag_model, retriever=retriever)
     tokenizer = RagTokenizer.from_pretrained(rag_args.rag_model)
 
@@ -148,7 +149,7 @@ def main(
 
     output_filename = get_output_filename()
     with open(output_filename, 'w', encoding='utf-8') as output_file:
-        output_file.write("dataset: wiki_dpr\n")
+        output_file.write("dataset: " + str(rag_args.dataset) + "\n")
         output_file.write("max_length: " + str(hyper_params.max_length) + "\n")
         output_file.write("num_beams: " + str(hyper_params.num_beams) + "\n")
         output_file.write("n_docs: " + str(hyper_params.n_docs) + "\n")

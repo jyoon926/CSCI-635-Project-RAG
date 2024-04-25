@@ -1,4 +1,4 @@
-dataset: wiki_dpr
+dataset: datasets/scrubbed_output_22APR.txt
 max_length: 200
 num_beams: 3
 n_docs: 10

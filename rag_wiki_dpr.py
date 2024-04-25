@@ -55,7 +55,8 @@ def main(
     ######################################
 
     # Easy way to load the model
-    retriever = RagRetriever.from_pretrained(rag_args.rag_model, index_path=rag_args.index_path, n_docs=hyper_params.n_docs, index_name="legacy")
+    retriever = RagRetriever.from_pretrained(rag_args.rag_model, index_path=rag_args.index_path, index_name="custom")
+    retriever.n_docs = hyper_params.n_docs
     model = RagTokenForGeneration.from_pretrained(rag_args.rag_model, retriever=retriever)
     tokenizer = RagTokenizer.from_pretrained(rag_args.rag_model)
 
