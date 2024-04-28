@@ -1,0 +1,192 @@
+dataset: datasets/neurips.txt
+max_length: 200
+num_beams: 3
+n_docs: 10
+passage_length: 80
+rag_model: ./rag_checkpoint
+dpr_ctx_encoder: facebook/dpr-ctx_encoder-single-nq-base
+
+Q: What is retrieval-augmented generation?
+
+	A: Large pre-trained language models have been shown to store factual knowledge in their parameters. However, their ability to access and precisely manipulate knowledge is still limited, and hence on tasks, their perfor- mance // what is retrieval - augmented generation? Patrick Lewis, Ethan Perez?, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Küttler, Mike Lewis, Wen-tau Yih.
+
+	Time to generate: 11.934703826904297 seconds
+
+Q: What is the purpose of the RAG model in NLP tasks?
+
+	A: RAG is a retrieval augmented generation model for knowledge intensive nlp tasks. RAG can be used to replace T5, BART, or T2seq in nlp retrieval tasks. The model is based on a top-K approximation of the latent documents conditioned on the input and the input.
+
+	Time to generate: 6.655440807342529 seconds
+
+Q: How does the rag-sequence work compared to the rag-token model?
+
+	A: XTR and RAG are two models that can be used for nlp retrieval augmented generation. RAG uses a top-K approximation to marginalize the latent documents with a per-document basis. XTR and ColBERT can be combined to create a single model of nlp. retrieval.
+
+	Time to generate: 6.478358507156372 seconds
+
+Q: How is evaluation performed in RAG?
+
+	A:  retrieval augmented generation for knowledge intensive nlp tasks / unconstrained generation outperforms previous extractive approaches. For FEVER [ 56] fact veriﬁcation, we achieve results within 4.3% of pipeline models which use strong retrieval supervision. We demonstrate that the non-parametric memory can be replaced to update the models.
+
+	Time to generate: 7.004525423049927 seconds
+
+Q: What is the difference between the BART and BERT models?
+
+	A: We train all variants of AB-Net for 50epochs and evaluate on the validation set of IWSLT14 De-En. We also consider the variant that ﬁne-tunes the full model in AB- net (AB-Net FB) or trains AB-net from scratch. Results are shown in Figure 3.
+
+	Time to generate: 7.330976247787476 seconds
+
+Q: How are the BERT and BART models used in RAG?
+
+	A: The bert and bart models used in rag are used to decode sequences of text. The bert model is used in parallel sequence decoding with adapters. The bart model is incorporated into parallel sequence-decoding with adapters to freeze the BERT components. The adapters are then used to train the full model in ABT.
+
+	Time to generate: 7.27160120010376 seconds
+
+Q: How does the RAG model use BART for text generation?
+
+	A: Rag model is a form of retrieval augmented generation for knowledge intensive nlp tasks / retrievals. RAG model uses latent documents conditioned on the input to generate the output. We marginalize the latent documents with a top-K approximation. Like T5 or BART, RAG can be used to generate text.
+
+	Time to generate: 6.176566123962402 seconds
+
+Q: What is the role of Sentence Transformers in enhancing the RAG model's retrieval capabilities?
+
+	A: RAG can be used for knowledge intensive nlp tasks / retriever. It provides latent documents conditioned on the input, and the seq2seq model (BART) conditions on these latent documents together with the input to generate the output. We marginalize the latent documents with a top-K approximation.
+
+	Time to generate: 5.86694860458374 seconds
+
+Q: How does the RAG model retrieve text documents for generating target sequences?
+
+	A: RAG is an augmented retrieval augmented generation for knowledge intensive nlp tasks / retrievals. It can be used to retrieve text documents for generating target sequences. We marginalize the latent documents with a top-K approximation. Like T5 or BART, RAG can be // how does the rag model retrieve texts for generating targets?
+
+	Time to generate: 6.177325963973999 seconds
+
+Q: What are the differences between RAG-Sequence and RAG-Token models?
+
+	A: We do not measure the complexity for the online query encoding and maximum inner product search. We assume the worst case nk′where each document token comes from a unique document. For each candidate document, ColBERT loads a set of document vectors of ¯mdﬂoating points.
+
+	Time to generate: 5.802741050720215 seconds
+
+Q: How does the training process of the RAG model involve the retriever and generator components?
+
+	A: Self-memorization is a form of retrieval augmented generation for knowledge intensive nlp tasks. The RAG model can be used to generate knowledge-intensive tasks. It can be replaced by a non-parametric memory model that can be trained to update its knowledge as the world changes.
+
+	Time to generate: 5.4955525398254395 seconds
+
+Q: What is the significance of using BERT as the document encoder in RAG models?
+
+	A: The proposed framework is based on fairseq. incorporating bert into parallel sequence decoding with adapters with adapters / our framework on 1/8th of Nvidia 1080Ti. We consider Mask-Predicting as the backbone of our training. We also consider a variant of our model that only incorporates BERT on the source-side.
+
+	Time to generate: 6.20559549331665 seconds
+
+Q: What are the advantages of RAG-Token over RAG-Sequence in Jeopardy question generation?
+
+	A: Results are based on a top-K approximation of the worst-case scenario. We marginalize the complexity of the online query by using a per-output or per-token basis. We use the RAG - token over rag - sequence in jeopardy question generation question generation.
+
+	Time to generate: 6.071228981018066 seconds
+
+Q: How does RAG perform on the FEVER fact verification task?
+
+	A:  retrieval augmented generation for knowledge intensive nlp tasks / unconstrained generation outperforms previous extractive approaches. For FEVER [ 56] fact veriﬁcation, we achieve results within 4.3% of pipeline models which use strong retrieval supervision. We demonstrate that the non-parametric memory can be replaced to update the models’ knowledge as the world changes.
+
+	Time to generate: 8.247796535491943 seconds
+
+Q: What are the key components of the RAG model for knowledge-intensive NLP tasks?
+
+	A: RAG is a retrieval augmented generation model for knowledge intensive nlp tasks. RAG uses latent documents conditioned on the input, and the seq2seq model to generate the output. We marginalize the latent documents with a top-K approximation, either on a per-output basis or per-token basis. Like T5 or BART, RAG can be // what are the key components of the rag model?
+
+	Time to generate: 7.139976263046265 seconds
+
+Q: How does RAG combine parametric and non-parametric memories for NLP tasks?
+
+	A: RAG models combine parametric and non - parametric memories for nlp tasks. retrieval augmented generation for knowledge intensive nLP tasks / unconstrained generation outperforms previous extractive approaches. RAG models achieve results within 4.3% of the pipeline models which use strong retrieval supervision.
+
+	Time to generate: 5.614629745483398 seconds
+
+Q: What are the computational resources required for BERT and SentenceBERT in RAG models?
+
+	A: The proposed AB-Net framework is based on the IWSLT14 De-En, WMT14, and WMT16 Ro-En tasks. It can be used to encode and decode sentences in a parallel sequence. The proposed framework can also be used as a basis to train other models.
+
+	Time to generate: 5.328768968582153 seconds
+
+Q: How does RAG adapt to domain-specific tasks?
+
+	A:  retrieval augmented generation for knowledge intensive nlp tasks / unconstrained generation outperforms previous extractive approaches. Our models generate responses that are more factual, speciﬁc, and diverse than a BART baseline. We demonstrate that the non-parametric memory can be replaced to update the models’ knowledge as the world changes.
+
+	Time to generate: 5.770012378692627 seconds
+
+Q: What are the implementation details of RAG models for Open-domain QA?
+
+	A: AG models can be used for knowledge intensive nlp tasks / examples. retrieval augmented generation is present in the RAG model. RAG models achieve results by combining parametric and non-parametric memory with genera-based memory. The models can also be used to update the current token based on a context.
+
+	Time to generate: 6.050643682479858 seconds
+
+Q: How does RAG handle the retrieval of documents for different models?
+
+	A: AG models can be used for knowledge intensive nlp tasks. retrieval augmented generation is present without additional training. RAG models achieve results on open Natural Questions, WebQuestions and CuratedTasks. They can outperform approaches that use specialised pre-training objectives on TriviaQ.
+
+	Time to generate: 5.122527599334717 seconds
+
+Q: What is the significance of using mixed precision floating point arithmetic in RAG training?
+
+	A:  retrieval augmented generation for knowledge intensive nlp tasks / unconstrained generation outperforms previous extractive approaches. We explore RAG // what is the significance of using mixed precision floating point arithmetic in rag training? We demonstrate that the non-parametric memory can be replaced to update the models’ knowledge as the world changes.
+
+	Time to generate: 6.064481973648071 seconds
+
+Q: How does RAG utilize FAISS for document indexing and retrieval?
+
+	A: RAG is a form of retrieval augmented generation for knowledge intensive nlp tasks / retrievals. RAG models can be found in the Dense Passage Retriever (Dense Passage) project. The RAG model is based on a top-K approximation of the latent documents.
+
+	Time to generate: 5.548611402511597 seconds
+
+Q: What are the training setup details for RAG models?
+
+	A: We use MS-MARCO and Jeopardy question generation to train rag models. The models generate responses that are more factual, speciﬁc, and diverse than a BART baseline. We demonstrate that the non-parametric memory can be used to update the models’ knowledge as the world changes.
+
+	Time to generate: 5.6162495613098145 seconds
+
+Q: How does RAG perform on Open-Domain QA test scores?
+
+	A: We explore how RAG // how does rag perform on open - domain qa test scores. retrieval augmented generation for knowledge intensive nlp tasks / unconstrained generation outperforms previous extractive approaches. For FEVER [ 56] fact veriﬁcation, we achieve results within 4.3% of pipeline models which use strong retrieval supervision.
+
+	Time to generate: 6.3788743019104 seconds
+
+Q: What are the test scores for RAG models on Generation and Classification tasks?
+
+	A: We use MS-MARCO and Jeopardy question generation to test rag models for knowledge intensive nlp tasks. Our models generate responses that are more factual, speciﬁc, and diverse than a BART baseline. We demonstrate that the non-parametric memory can be replaced to update the models’ knowledge as the world changes.
+
+	Time to generate: 6.136589765548706 seconds
+
+Q: How does RAG perform on Jeopardy question generation?
+
+	A:  retrieval augmented generation for knowledge intensive nlp tasks / unconstrained generation outperforms previous extractive approaches. For generation, we experiment with MS-MARCO [ 1] and Jeopardy question generation. We demonstrate that the non-parametric memory can be replaced to update the models’ knowledge as the world changes.
+
+	Time to generate: 5.561779737472534 seconds
+
+Q: What are the human evaluation results for RAG models on factuality?
+
+	A: We explore RAG // what are the human evaluation results for rag models on factuality. retrieval augmented generation for knowledge intensive nlp tasks / unconstrained generation outperforms previous extractive approaches. For FEVER [ 56] fact veriﬁcation, we achieve results within 4.3% of pipeline models which use strong retrieval supervision. We demonstrate that the non-parametric memory can be replaced to update models’ knowledge as the world changes.
+
+	Time to generate: 8.045306921005249 seconds
+
+Q: How does RAG generate correct answers when the correct answer is not in any retrieved document?
+
+	A:  Rag is a form of retrieval augmented generation for knowledge intensive nlp tasks. It can be used to generate correct answers when the correct answer is not in any retrieved document. We marginalize the need for special documents to be retrieved in order to generate the correct answers. RAG can be replaced with a non-parametric memory model that can be updated as needed.
+
+	Time to generate: 7.166461944580078 seconds
+
+Q: What are the qualitative observations on RAG generations compared to BART?
+
+	A: Cross-episodic attention to curricular data. retrieval augmented generation for knowledge intensive nlp tasks / unconstrained generation outperforms previous extractive approaches. We demonstrate that the non-parametric memory can be used to update the models’ knowledge as the world changes.
+
+	Time to generate: 6.05578088760376 seconds
+
+Q: What does the future of AI look like?
+
+	A: TheHAPI dataset is distributed at under Apache License 2.0. Each dataset contains predictions from 3 commercial ML APIs in 2020, 2021, and 2022. TheHAPI API did not return predictions from the Face++ model on AFNET in 2022, so we use 2021 predictions for AFNET.
+
+	Time to generate: 6.425208330154419 seconds
+
+Total time: 218.5134038925171 seconds
+Indexing time: 10.24936056137085 seconds
+Loading time: 13.514730453491211 seconds
+Average generation time: 6.4915088256200155 seconds
