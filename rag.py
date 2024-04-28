@@ -1,3 +1,13 @@
+"""
+File: rag.py
+Description: This module implements the functionality to process documents,
+             embed them using a DPR Context Encoder, and generate answers to
+             questions using a RAG (Retrieval-Augmented Generation) model.
+             The process involves reading a dataset, indexing it with FAISS,
+             and then querying it to generate answers using the RAG model.
+Author: Jacob Yoon
+"""
+
 import os
 from dataclasses import dataclass, field
 from functools import partial
@@ -12,7 +22,6 @@ from transformers import (
     HfArgumentParser,
     RagRetriever,
     RagTokenForGeneration,
-    RagSequenceForGeneration,
     RagTokenizer
 )
 import time
@@ -58,6 +67,7 @@ def get_questions(questions_file: str):
 
 
 def get_output_filename():
+    """Get filename of output file"""
     filename = "output/output"
     i = 0
     while os.path.exists(filename + str(i) + ".txt"):
@@ -258,14 +268,14 @@ class ProcessingArguments:
 class IndexHnswArguments:
     d: int = field(
         default=768,
-        metadata={"help": "The dimension of the embeddings to pass to the HNSW Faiss index."},
+        metadata={
+            "help": "The dimension of the embeddings to pass to the HNSW Faiss index."
+        },
     )
     m: int = field(
         default=256,
         metadata={
-            "help": (
-                "The number of bi-directional links created for every new element during the HNSW index construction."
-            )
+            "help": "The number of bi-directional links created for every new element during the HNSW index construction."
         },
     )
 

@@ -1,3 +1,12 @@
+"""
+File: rag_wiki_dpr.py
+Description: This module implements the functionality to generate answers to
+             questions using a RAG model based on the wiki_dpr dataset.
+             The process involves reading the indexed dataset and then querying
+             it to generate answers using the RAG model.
+Author: Jacob Yoon
+"""
+
 import os
 from dataclasses import dataclass, field
 from typing import Optional
@@ -6,7 +15,6 @@ from transformers import (
     HfArgumentParser,
     RagRetriever,
     RagTokenForGeneration,
-    RagSequenceForGeneration,
     RagTokenizer
 )
 import time
@@ -26,6 +34,7 @@ def get_questions(questions_file: str):
 
 
 def get_output_filename():
+    """Get filename of output file"""
     filename = "output/output"
     i = 0
     while os.path.exists(filename + str(i) + ".txt"):
@@ -34,6 +43,7 @@ def get_output_filename():
 
 
 def generate(tokenizer, model, question):
+    """Generates a response from a given question"""
     input_ids = tokenizer.question_encoder(question, return_tensors="pt")["input_ids"]
     generated = model.generate(
                     input_ids, 

@@ -1,5 +1,7 @@
 """
-A script creating a RAG checkpoint from a generator and a question encoder checkpoints.
+File: consolidate_rag_checkpoint.py
+Description: This module creates a RAG checkpoint from a generator and a question encoder.
+Author: Jacob Yoon
 """
 
 import argparse
